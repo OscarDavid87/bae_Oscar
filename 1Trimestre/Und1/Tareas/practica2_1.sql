@@ -1,7 +1,11 @@
-CREATE DATABASE bd_centro;
-CHARACTER SET utf8 COLLATE utf8_spnish_ci;
+CREATE DATABASE bd_centro; /* creamos la base de datos centro*/
+CHARACTER SET utf8 COLLATE utf8_spnish_ci; /* usamos los comandos CHARACTER SET y COLLATE*/
 USE bd_centro;
 
+/* Creamos la tabla Profesores
+    Utilizaremos el dni como primary key, y no podra dejar en blanco los campos
+    nombre, apellido1 y salario.
+    */
 CREATE TABLE PROFESORES(
   dni varchar (9) primary key,
   nombre varchar(10) not null unique,
@@ -11,6 +15,9 @@ CREATE TABLE PROFESORES(
   salario decimal(6,2) not null
 );
 
+/*creamos la tabla CURSOS, en esta tabla tenemos;
+  como primary key un codigo incremental y como FOREIGN key el dni de los PROFESORES
+  al tratarse de un curso todo los campos deben estar rellenados*/
 CREATE TABLE CURSOS(
   nombre varchar (10) not null unique,
   codigo int (5) auto_increment primary key,
@@ -21,6 +28,10 @@ CREATE TABLE CURSOS(
   horas int (3) not null
 );
 
+/* creamos la tabla ALUMNOS de la cual;
+  dni es primary key y cursos foreing key
+  dado que necesitamos tener todos los datos del alumno no pueden quedar campos en blanco
+  */
 CREATE TABLE ALUMNOS (
   dni varchar (9) primary key,
   nombre varchar(10) not null,
@@ -32,5 +43,6 @@ CREATE TABLE ALUMNOS (
   curso int (5), FOREIGN KEY (codigo) references CURSOS(codigo)
 );
 
+/* creamos la entidad PROFESORES y la entidad alumnos, y les damos una clave de acceso */
 CREATE user Profesores IDENTIFIED BY ClaveAcceso;
 CREATE USER Alumnos IDENTIFIED by ClaveAccesoAlumno;
